@@ -4,32 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log/slog"
 	"net/http"
 	"net/url"
 
 	"github.com/barnabasSol/mpesa_client/internals/modules/shared"
 )
 
-type client struct {
-	c      *http.Client
-	logger *slog.Logger
-}
-
-type ClientHandler interface {
-	GetAccessToken(consumerKey, consumerSecret string) (*AuthResponse, *shared.ErrorResponse, error)
-}
-
-func NewClient(httpClient *http.Client, logger *slog.Logger) ClientHandler {
-	return &client{
-		c:      httpClient,
-		logger: logger,
-	}
-}
-
-func (c *client) GetAccessToken(consumerKey, consumerSecret string) (
+func (c *client) GetAccessToken() (
 	*AuthResponse,
-	*shared.ErrorResponse,
+	*ErrorResponse,
 	error,
 ) {
 	params := url.Values{}
@@ -44,14 +27,14 @@ func (c *client) GetAccessToken(consumerKey, consumerSecret string) (
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to create request: %w", err) // Return error
 	}
-	req.SetBasicAuth(consumerKey, consumerSecret)
+	req.SetBasicAuth(c.consumerKey, c.consumerSecret)
 	resp, err := c.c.Do(req)
 	if err != nil {
 		//c.logger.Error(err.Error())
 		return nil, nil, fmt.Errorf("failed reading response: %w", err)
 	}
-	body, err := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
 		//c.logger.Error(err.Error())
@@ -59,7 +42,7 @@ func (c *client) GetAccessToken(consumerKey, consumerSecret string) (
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		errResp := new(shared.ErrorResponse)
+		errResp := new(ErrorResponse)
 
 		err = json.Unmarshal(body, errResp)
 		if err != nil {
