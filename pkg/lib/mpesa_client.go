@@ -4,12 +4,14 @@ import (
 	"net/http"
 
 	"github.com/barnabasSol/mpesa_client/internals/modules/auth"
+	"github.com/barnabasSol/mpesa_client/internals/modules/stkpush"
 	"github.com/barnabasSol/mpesa_client/internals/modules/c2b"
 )
 
 type mpesaClient struct {
 	Auth auth.Authenticator
 	C2B  c2b.C2BHandler
+	STKPush stkpush.STKPushHandler
 }
 
 func New(consumerKey, consumerSecret string, c *http.Client) *mpesaClient {
@@ -23,9 +25,11 @@ func New(consumerKey, consumerSecret string, c *http.Client) *mpesaClient {
 
 	authClient := auth.NewAuthenticator(client, logger, consumerKey, consumerSecret)
 	c2bClient := c2b.NewC2BHandler(client, logger)
+	stkpushClient := stkpush.NewSTKPushHandler(client,logger )
 
 	return &mpesaClient{
 		authClient,
 		c2bClient,
+		stkpushClient,
 	}
 }
