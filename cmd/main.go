@@ -18,6 +18,8 @@ func main() {
 	consumerSecret := os.Getenv("CONSUMER_SECRET")
 
 	mpesaClient := mpesa.New(consumerKey, consumerSecret, nil)
+	//test
+	mpesaClient.STKPush.SendSTKPushRequest("accesstoken","1234", "paybill","100","098765","1234", "DATA","desc")
 
 }
 
