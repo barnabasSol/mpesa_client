@@ -16,5 +16,8 @@ type client struct {
 }
 
 func NewC2BHandler(c *http.Client, logger *slog.Logger) C2BHandler {
-	return &client{client: c, logger: logger}
+	return &client{
+		client: c,
+		logger: logger,
+	}
 }

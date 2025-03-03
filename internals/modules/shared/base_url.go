@@ -1,3 +1,3 @@
 package shared
 
-const BaseURL = `https://apisandbox.safaricom.et`
+var BaseURL = `https://apisandbox.safaricom.et`

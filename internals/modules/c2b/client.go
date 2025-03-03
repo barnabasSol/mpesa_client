@@ -48,7 +48,10 @@ func (c *client) RegisterURL(
 	return registerResponse, nil
 }
 
-func (c *client) ProcessPayment(paymentReq PaymentRequest, accessToken string) (*PaymentResponse, error) {
+func (c *client) ProcessPayment(
+	paymentReq PaymentRequest,
+	accessToken string,
+) (*PaymentResponse, error) {
 	route := fmt.Sprintf(
 		"%s/v1/c2b/payments",
 		shared.BaseURL,

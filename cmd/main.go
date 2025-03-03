@@ -17,17 +17,12 @@ func main() {
 	consumerKey := os.Getenv("CONSUMER_KEY")
 	consumerSecret := os.Getenv("CONSUMER_SECRET")
 
-	mpesaClient := mpesa.New(consumerKey, consumerSecret, nil)
+	mpesaClient := mpesa.New(
+		"https://apisandbox.safaricom.et",
+		consumerKey,
+		consumerSecret,
+		nil,
+	)
+	mpesaClient.Auth.GetAccessToken()
 
 }
-
-// result, err := mpesaClient.C2B.RegisterURL(
-// 	c2b.RegisterURLDto{
-// 		ShortCode:       "101010",
-// 		ResponseType:    "Completed",
-// 		CommandID:       "RegisterURL",
-// 		ConfirmationURL: "http://mydomain.com/c2b/confirmation",
-// 		ValidationURL:   "http://mydomai.com/c2b/validation",
-// 	},
-// 	t.AccessToken,
-// )

@@ -18,11 +18,5 @@ type PaymentResponse struct {
 	ResponseCode   string `json:"ResponseCode"`
 	ResponseDesc   string `json:"ResponseDesc"`
 	TransactionID  string `json:"TransactionID"`
-	AdditionalInfo []any  `json:"AdditionalInfo"` // Use appropriate type based on expected structure
+	AdditionalInfo []any  `json:"AdditionalInfo"`
 }
-
-// "RequestRefID": "29900fe1-ac90-45ce-9443-19eec5f31234",
-// "ResponseCode": "0",
-// "ResponseDesc": "The service request is processed successfully.",
-// "TransactionID": "",
-// "AdditionalInfo": []

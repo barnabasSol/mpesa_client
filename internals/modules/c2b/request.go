@@ -1,5 +1,7 @@
 package c2b
 
+import "time"
+
 type RegisterURLDto struct {
 	ShortCode       string `json:"ShortCode"`
 	ResponseType    string `json:"ResponseType"`
@@ -9,17 +11,17 @@ type RegisterURLDto struct {
 }
 
 type PaymentRequest struct {
-	RequestRefID     string         `json:"RequestRefID"`
-	CommandID        string         `json:"CommandID"`
-	Remark           string         `json:"Remark"`
-	ChannelSessionID string         `json:"ChannelSessionID"`
-	SourceSystem     string         `json:"SourceSystem"`
-	Timestamp        string         `json:"Timestamp"`
-	Parameters       []KeyValuePair `json:"Parameters"`
-	ReferenceData    []KeyValuePair `json:"ReferenceData,omitempty"` // Optional
-	Initiator        Initiator      `json:"Initiator"`
-	PrimaryParty     Party          `json:"PrimaryParty"`
-	ReceiverParty    Party          `json:"ReceiverParty"`
+	RequestRefID     string          `json:"RequestRefID"`
+	CommandID        string          `json:"CommandID"`
+	Remark           string          `json:"Remark"`
+	ChannelSessionID string          `json:"ChannelSessionID"`
+	SourceSystem     string          `json:"SourceSystem"`
+	Timestamp        time.Time       `json:"Timestamp"`
+	Parameters       []KeyValuePair  `json:"Parameters"`
+	ReferenceData    *[]KeyValuePair `json:"ReferenceData,omitempty"`
+	Initiator        Initiator       `json:"Initiator"`
+	PrimaryParty     Party           `json:"PrimaryParty"`
+	ReceiverParty    Party           `json:"ReceiverParty"`
 }
 
 type KeyValuePair struct {
@@ -35,7 +37,7 @@ type Initiator struct {
 }
 
 type Party struct {
-	IdentifierType int    `json:"IdentifierType"`
-	Identifier     string `json:"Identifier"`
-	ShortCode      string `json:"ShortCode,omitempty"` // Only for ReceiverParty
+	IdentifierType int     `json:"IdentifierType"`
+	Identifier     string  `json:"Identifier"`
+	ShortCode      *string `json:"ShortCode,omitempty"`
 }
