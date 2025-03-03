@@ -9,13 +9,6 @@ import (
 	"github.com/barnabasSol/mpesa_client/internals/modules/stkpush"
 )
 
-type Env string
-
-const (
-	Sandbox Env = "sandbox"
-	Prod    Env = "production"
-)
-
 type mpesaClient struct {
 	Env     Env
 	Auth    auth.Authenticator
@@ -57,6 +50,13 @@ func New(
 		stkpushClient,
 	}
 }
+
+type Env string
+
+const (
+	Sandbox Env = "sandbox"
+	Prod    Env = "production"
+)
 
 func handleEnv(env Env) {
 	switch env {

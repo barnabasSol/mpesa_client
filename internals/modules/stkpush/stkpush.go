@@ -7,16 +7,9 @@ import (
 
 type STKPushHandler interface {
 	SendSTKPushRequest(
+		stkPushRequest STKPushRequest,
 		bearerToken string,
-		businessShortCode string,
-		transactionType string,
-		amount string,
-		msisdn string,
-		partyB string,
-		accountReference string,
-		transactionDesc string,
 	) (*STKResponse, error)
-	HandleSTKCallbackResponse(*StkCallBackResponse)
 }
 
 type client struct {
