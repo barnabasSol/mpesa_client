@@ -14,7 +14,7 @@ import (
 
 func (c *client) SendSTKPushRequest(
 	bearerToken string, businessShortCode string, transactionType string, amount string,
-	 msisdn string, partyB string, accountReference string, transactionDesc string,
+	msisdn string, partyB string, accountReference string, transactionDesc string,
 ) (*STKResponse, error) {
 	route := fmt.Sprintf(
 		"%s/stkpush/v3/processrequest",
@@ -25,23 +25,23 @@ func (c *client) SendSTKPushRequest(
 	password := sha256.Sum256([]byte(timestamp + businessShortCode))
 
 	stkpushReq := STKPushRequest{
-		MerchantRequestID: "", //to be generated
+		MerchantRequestID: "Partner name -{{$guid}}",
 		BusinessShortCode: businessShortCode,
-		Password: base64.StdEncoding.EncodeToString(password[:]),
-		Timestamp: timestamp,
-		TransactionType: transactionType,
-		Amount: amount,
-		PartyA: msisdn,
-		PartyB: partyB,
-		PhoneNumber: msisdn,
-		TransactionDesc: transactionDesc,
-		CallBackURL: shared.CallBackURL,
-		AccountReference: accountReference,
+		Password:          base64.StdEncoding.EncodeToString(password[:]),
+		Timestamp:         timestamp,
+		TransactionType:   transactionType,
+		Amount:            amount,
+		PartyA:            msisdn,
+		PartyB:            partyB,
+		PhoneNumber:       msisdn,
+		TransactionDesc:   transactionDesc,
+		CallBackURL:       shared.CallBackURL,
+		AccountReference:  accountReference,
 	}
 
 	jsonBody, err := json.Marshal(stkpushReq)
 	if err != nil {
-	    return nil, fmt.Errorf("failed to marshal request body: %w", err)
+		return nil, fmt.Errorf("failed to marshal request body: %w", err)
 	}
 
 	req, err := http.NewRequest("POST", route, bytes.NewBuffer(jsonBody))
@@ -71,5 +71,5 @@ func (c *client) SendSTKPushRequest(
 }
 
 func (c *client) HandleSTKCallbackResponse(*StkCallBackResponse) {
-	
+
 }

@@ -9,26 +9,36 @@ import (
 	"github.com/barnabasSol/mpesa_client/internals/modules/stkpush"
 )
 
+type Env string
+
+const (
+	Sandbox Env = "sandbox"
+	Prod    Env = "production"
+)
+
 type mpesaClient struct {
-	BaseURL string
+	Env     Env
 	Auth    auth.Authenticator
 	C2B     c2b.C2BHandler
 	STKPush stkpush.STKPushHandler
 }
 
 func New(
-	baseUrl, consumerKey, consumerSecret string,
+	env Env,
 	c *http.Client,
+	consumerKey, consumerSecret string,
 ) *mpesaClient {
+
+	handleEnv(env)
+
 	client := new(http.Client)
 	if c != nil {
 		client = c
 	} else {
 		client = defaultClient()
 	}
-	logger := loggerConfig()
 
-	shared.BaseURL = baseUrl
+	logger := loggerConfig()
 
 	authClient := auth.NewAuthenticator(
 		client,
@@ -41,9 +51,20 @@ func New(
 	stkpushClient := stkpush.NewSTKPushHandler(client, logger)
 
 	return &mpesaClient{
-		baseUrl,
+		env,
 		authClient,
 		c2bClient,
 		stkpushClient,
+	}
+}
+
+func handleEnv(env Env) {
+	switch env {
+	case Sandbox:
+		shared.BaseURL = "https://apisandbox.safaricom.et"
+	case Prod:
+		shared.BaseURL = "https://api.safaricom.et"
+	default:
+		panic("invalid environment")
 	}
 }

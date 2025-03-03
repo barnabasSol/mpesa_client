@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/barnabasSol/mpesa_client/internals/modules/c2b"
 	mpesa "github.com/barnabasSol/mpesa_client/pkg/lib"
 	"github.com/joho/godotenv"
 )
@@ -16,15 +17,20 @@ func main() {
 
 	consumerKey := os.Getenv("CONSUMER_KEY")
 	consumerSecret := os.Getenv("CONSUMER_SECRET")
+	accessToken := os.Getenv("ACCESS_TOKEN")
+	_ = accessToken
 
 	mpesaClient := mpesa.New(
-		"https://apisandbox.safaricom.et",
+		mpesa.Sandbox,
+		nil,
 		consumerKey,
 		consumerSecret,
-		nil,
 	)
-	mpesaClient.Auth.GetAccessToken()
-	//test
-	mpesaClient.STKPush.SendSTKPushRequest("accesstoken", "1234", "paybill", "100", "098765", "1234", "DATA", "desc")
+	_ = mpesaClient
+	res, err := mpesaClient.C2B.ProcessPayment(c2b.PaymentRequest{}, accessToken)
+	if err != nil {
+		log.Println(res)
+		return
+	}
 
 }

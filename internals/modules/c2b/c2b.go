@@ -7,6 +7,8 @@ import (
 
 type C2BHandler interface {
 	RegisterURL(registerDto RegisterURLDto, apiKey string) (*RegisterResponse, error)
+
+	//  endpoint doesnt exist but still here for testing purposes
 	ProcessPayment(paymentReq PaymentRequest, accessToken string) (*PaymentResponse, error)
 }
 
