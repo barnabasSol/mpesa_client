@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/barnabasSol/mpesa_client/internals/modules/auth"
+	"github.com/barnabasSol/mpesa_client/internals/modules/b2c"
 	"github.com/barnabasSol/mpesa_client/internals/modules/c2b"
 	"github.com/barnabasSol/mpesa_client/internals/modules/shared"
 	"github.com/barnabasSol/mpesa_client/internals/modules/stkpush"
@@ -14,6 +15,7 @@ type mpesaClient struct {
 	Auth    auth.Authenticator
 	C2B     c2b.C2BHandler
 	STKPush stkpush.STKPushHandler
+	B2C     b2c.B2CHandler
 }
 
 func New(
@@ -42,12 +44,13 @@ func New(
 
 	c2bClient := c2b.NewC2BHandler(client, logger)
 	stkpushClient := stkpush.NewSTKPushHandler(client, logger)
-
+	b2cClient :=  b2c.NewB2CHandler(client, logger)
 	return &mpesaClient{
 		env,
 		authClient,
 		c2bClient,
 		stkpushClient,
+		b2cClient,
 	}
 }
 

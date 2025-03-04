@@ -46,6 +46,7 @@ func (c *client) SendSTKPushRequest(
 	if err != nil {
 		return nil, fmt.Errorf("failed reading response: %w", err)
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API error: %s", resp.Status)
