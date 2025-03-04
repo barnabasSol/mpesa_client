@@ -3,11 +3,11 @@ package mpesa
 import (
 	"net/http"
 
-	"github.com/barnabasSol/mpesa_client/lib/modules/auth"
-	"github.com/barnabasSol/mpesa_client/lib/modules/b2c"
-	"github.com/barnabasSol/mpesa_client/lib/modules/c2b"
-	"github.com/barnabasSol/mpesa_client/lib/modules/shared"
-	"github.com/barnabasSol/mpesa_client/lib/modules/stkpush"
+	"github.com/barnabasSol/mpesa_client/modules/auth"
+	"github.com/barnabasSol/mpesa_client/modules/b2c"
+	"github.com/barnabasSol/mpesa_client/modules/c2b"
+	"github.com/barnabasSol/mpesa_client/modules/shared"
+	"github.com/barnabasSol/mpesa_client/modules/stkpush"
 )
 
 type mpesaClient struct {

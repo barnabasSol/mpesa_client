@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/barnabasSol/mpesa_client/lib/modules/shared"
+	"github.com/barnabasSol/mpesa_client/modules/shared"
 )
 
 func (c *client) GetAccessToken() (

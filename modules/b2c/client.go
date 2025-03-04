@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/barnabasSol/mpesa_client/lib/modules/shared"
+	"github.com/barnabasSol/mpesa_client/modules/shared"
 )
 
 func (c *client) SendB2CRequest(
