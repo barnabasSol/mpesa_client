@@ -1,10 +1,11 @@
-### Introduction to the Minimal MPESA Client Library
-
-The **Minimal MPESA Client Library** is a lightweight SDK designed to simplify interactions with MPESA services. It provides an intuitive interface for developers to integrate MPESA functionality, such as authentication and payment processing, into their applications. The library supports both **sandbox** and **production** environments, making it ideal for testing and deployment.
-
+The **Minimal MPESA Client Library** is a lightweight SDK designed to simplify interactions with MPESA services. It provides an intuitive interface for developers to integrate MPESA functionality, such as authentication and payment processing, into their applications. 
 #### Getting Started
 
-To initialize the MPESA client, use the following code snippet:
+To initialize the MPESA client first get the library then use the following code snippet:
+
+```bash
+go get github.com/barnabasSol/mpesa_client
+```
 
 ```go
 mpesaClient := mpesa.New(
@@ -67,3 +68,32 @@ log.Println("Response:", res)
 - **Amount**: Payment amount.
 - **PartyA/PartyB**: Customer and business details.
 - **ReferenceData**: Optional metadata for additional context.
+
+### Registering a URL for C2B
+
+In addition to STK Push, the library also supports registering URLs for C2B (Customer to Business) transactions. This involves specifying callback URLs for transaction validation and confirmation.
+
+#### Registering a URL
+
+To register a URL for C2B, you can use the `RegisterURL` function:
+
+```go
+registerDto := RegisterURLDto{
+    ShortCode:       "802000",               
+    ResponseType:    "Completed",           
+    CommandID:       "RegisterURL",         
+    ConfirmationURL:  "https://www.myservice:8080/confirmation", 
+    ValidationURL:   "https://www.myservice:8080/validation",   
+}
+
+consumerKey := "you-consumer-key" 
+
+response, err := RegisterURL(registerDto, consumerKey)
+
+if err != nil {
+    log.Println("Error registering URL:", err)
+    return
+}
+
+log.Println("Registration Response:", response)
+```
