@@ -1,6 +1,7 @@
 package mpesa
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/barnabasSol/mpesa_client/internals/modules/auth"
@@ -40,8 +41,7 @@ func New(
 		consumerSecret,
 	)
 
-	c2bClient := c2b.NewC2BHandler(client, logger)
-	stkpushClient := stkpush.NewSTKPushHandler(client, logger)
+	c2bClient, stkpushClient := newFunction(client, logger)
 
 	return &mpesaClient{
 		env,
@@ -49,6 +49,12 @@ func New(
 		c2bClient,
 		stkpushClient,
 	}
+}
+
+func newFunction(client *http.Client, logger *slog.Logger) (c2b.C2BHandler, stkpush.STKPushHandler) {
+	c2bClient := c2b.NewC2BHandler(client, logger)
+	stkpushClient := stkpush.NewSTKPushHandler(client, logger)
+	return c2bClient, stkpushClient
 }
 
 type Env string
@@ -63,7 +69,7 @@ func handleEnv(env Env) {
 	case Sandbox:
 		shared.BaseURL = "https://apisandbox.safaricom.et"
 	case Prod:
-		shared.BaseURL = "https://api.safaricom.et"
+		shared.BaseURL = "https://api.safaricom.co.ke"
 	default:
 		panic("invalid environment")
 	}

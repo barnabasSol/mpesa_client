@@ -6,8 +6,8 @@ import (
 )
 
 type STKPushHandler interface {
-	SendSTKPushRequest(
-		stkPushRequest STKPushRequest,
+	SendRequest(
+		stkPushRequest Request,
 		bearerToken string,
 	) (*STKResponse, error)
 }

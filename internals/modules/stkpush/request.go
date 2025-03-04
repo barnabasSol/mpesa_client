@@ -5,7 +5,7 @@ type ReferenceData struct {
 	Value string `json:"Value"`
 }
 
-type STKPushRequest struct {
+type Request struct {
 	//server generated id, you can leave it empty
 	MerchantRequestID string `json:"MerchantRequestID"`
 	BusinessShortCode string `json:"BusinessShortCode"`

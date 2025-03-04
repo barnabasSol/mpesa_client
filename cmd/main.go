@@ -28,13 +28,12 @@ func main() {
 	_ = mpesaClient
 	// x, _, _ := mpesaClient.Auth.GetAccessToken()
 	// log.Print(x.AccessToken)
-
-	res, err := mpesaClient.STKPush.SendSTKPushRequest(stkpush.STKPushRequest{
-		BusinessShortCode: "2060",
+	res, err := mpesaClient.STKPush.SendRequest(stkpush.Request{
+		BusinessShortCode: "4646",
 		TransactionType:   "CustomerPayBillOnline",
 		Amount:            20,
 		PartyA:            "251700404709",
-		PartyB:            "2060",
+		PartyB:            "4646",
 		PhoneNumber:       "251700404709",
 		AccountReference:  "Partner Unique ID",
 		TransactionDesc:   "Payment Reason",
