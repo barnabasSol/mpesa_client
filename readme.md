@@ -103,16 +103,16 @@ This function allows you to do M-Pesa transactions from a company to a client.
 
 ```go
 response, err := mpesaClient.B2C.SendRequest(b2c.Request{
-        InitiatorsName:  "YourInitiatorsName",
-        Initiator:       initiator,
-        Occassion:       "Disbursement",
-        CommandID:       "BusinessPayment",
-        PartyA:           "101010",
-        PartyB:           "251700100100", 
-        Remarks:         "test",
-        Amount:           "1000.00",
-        QueueTimeOutURL: "https://example.com/timeout",
-        ResultURL:       "https://example.com/result",
+        InitiatorsName:      "YourInitiatorsName",
+        SecurityCredentials: "iSHJEgQYt3xidNVJ7lbXZqRXUlBqpM",
+        Occassion:           "Disbursement",
+        CommandID:           "BusinessPayment",
+        PartyA:              "101010",
+        PartyB:              "251700100100", 
+        Remarks:             "test",
+        Amount:              "1000.00",
+        QueueTimeOutURL:     "https://example.com/timeout",
+        ResultURL:           "https://example.com/result",
     }, accessToken)
 
  if err != nil {
