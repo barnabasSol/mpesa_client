@@ -25,7 +25,7 @@ func (c *client) GetAccessToken() (
 
 	req, err := http.NewRequest("GET", route, nil)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to create request: %w", err) // Return error
+		return nil, nil, fmt.Errorf("failed to create request: %w", err)
 	}
 	req.SetBasicAuth(c.consumerKey, c.consumerSecret)
 	resp, err := c.c.Do(req)

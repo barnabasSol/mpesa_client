@@ -26,10 +26,8 @@ func New(
 
 	handleEnv(env)
 
-	client := new(http.Client)
-	if c != nil {
-		client = c
-	} else {
+	client := c
+	if client == nil {
 		client = defaultClient()
 	}
 
