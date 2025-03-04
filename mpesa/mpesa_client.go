@@ -10,7 +10,7 @@ import (
 	"github.com/barnabasSol/mpesa_client/modules/stkpush"
 )
 
-type mpesaClient struct {
+type MpesaClient struct {
 	Env     Env
 	Auth    auth.Authenticator
 	C2B     c2b.C2BHandler
@@ -22,7 +22,7 @@ func New(
 	env Env,
 	c *http.Client,
 	consumerKey, consumerSecret string,
-) *mpesaClient {
+) *MpesaClient {
 
 	handleEnv(env)
 
@@ -43,7 +43,7 @@ func New(
 	c2bClient := c2b.NewC2BHandler(client, logger)
 	stkpushClient := stkpush.NewSTKPushHandler(client, logger)
 	b2cClient := b2c.NewB2CHandler(client, logger)
-	return &mpesaClient{
+	return &MpesaClient{
 		env,
 		authClient,
 		c2bClient,
