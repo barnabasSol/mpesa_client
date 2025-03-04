@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/barnabasSol/mpesa_client/internals/modules/shared"
+	"github.com/barnabasSol/mpesa_client/lib/modules/shared"
 )
 
 func (c *client) RegisterURL(
